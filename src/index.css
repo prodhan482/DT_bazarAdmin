@@ -1,0 +1,60 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.cross{
+  @apply cursor-pointer absolute top-4 right-4 h-5 w-5
+}
+
+.active,.active h1{
+    color: #10823A;
+}
+.active::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 30px;
+  background-color: #10823A;
+  position: absolute;
+  left: 0;
+  transform: translateY(-5px);
+  border-radius: 0 30px 30px 0;
+} */
+
+
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
+
+html,
+body,
+#root,
+.app,
+.content {
+  height: 100%;
+  width: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+}
+
+.app {
+  display: flex;
+  position: relative;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
