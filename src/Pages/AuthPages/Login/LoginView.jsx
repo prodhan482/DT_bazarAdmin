@@ -27,7 +27,7 @@ function LoginView({ setEmail, setPassword, handleSignIn, message }) {
     // </FormLayout>
     // </div>
     
-    <section className="h-full bg-neutral-200 dark:bg-neutral-700 mt-8" style={{
+    <section className="h-full bg-neutral-200 dark:bg-neutral-700 " style={{
       paddingRight: "250px",
      backgroundColor: "white",
       //   lement.style {
@@ -35,7 +35,7 @@ function LoginView({ setEmail, setPassword, handleSignIn, message }) {
       // }
     }}>
       <div className="container h-full">
-        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200 pl-[250px] bg-white">
           <div className="w-full">
             <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
               <div className="g-0 lg:flex lg:flex-wrap flex">

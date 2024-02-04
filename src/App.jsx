@@ -38,7 +38,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <SideBar isSidebar={isSidebar} />
+          <SideBar />
           <main className="content">
             <NavBar setIsSidebar={setIsSidebar} />
             <Routes />

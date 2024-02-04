@@ -32,9 +32,9 @@ export default function Employees() {
   }
 
   return (
-    <div className="relative flex flex-col justify-center items-center w-full px-10">
-      <div className="w-full flex justify-between my-12">
-        <h1 className="text-xl font-bold text-[#313649]">
+    <div className="relative flex flex-col justify-center items-center w-full px-12">
+      <div className="w-full flex justify-between">
+        <h1 className="text-xl font-bold">
           Employee List ({items.length})
           
         </h1>

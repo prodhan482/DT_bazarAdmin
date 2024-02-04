@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { ProSidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import Logo from "../assets/bazar365_logo.png";
@@ -17,6 +17,14 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+
+import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
+
+import AppContext from "../Context/AppContext";
+import { useContext } from "react";
+
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -36,11 +44,77 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+// const Sublink = ({ title, to, setSelected }) => {
+//   return (
+//     <MenuItem onClick={() => setSelected(title)} className="sublink-item">
+//       <Link to={to}>{title}</Link>
+//     </MenuItem>
+//   );
+// };
+
+// const ItemWithSublinks = ({ title, to, icon, selected, setSelected, sublinks }) => {
+//   const theme = useTheme();
+//   const colors = tokens(theme.palette.mode);
+
+//   const [sublinksVisible, setSublinksVisible] = useState(false);
+
+//   const toggleSublinks = () => {
+//     setSublinksVisible(!sublinksVisible);
+//   };
+
+//   return (
+//     <>
+//       <MenuItem
+//         active={selected === title}
+//         style={{
+//           color: colors.grey[100],
+//           display: "flex",
+//           justifyContent: "space-between",
+//         }}
+//         onClick={() => {
+//           toggleSublinks();
+//           setSelected(title);
+//         }}
+//         icon={icon}
+//       >
+
+//         <Typography>
+//           {title}
+//         {sublinks && (
+//           <IconButton className="sublink-toggle" onClick={toggleSublinks}>
+//             {sublinksVisible ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+//           </IconButton>
+//         )}
+//         </Typography>
+
+//         <Link to={to} />
+
+//       </MenuItem>
+
+//       {sublinksVisible && sublinks && sublinks.length > 0 && (
+//         <Menu>
+//           {sublinks.map((sublink, index) => (
+//             <Sublink key={index} {...sublink} setSelected={setSelected} />
+//           ))}
+//         </Menu>
+
+//       )}
+//     </>
+//   );
+// };
+
+const SideBar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const { employee } = useContext(AppContext);
+  // console.log("🚀 ~ SideBar ~ employee:", employee)
+
+  if (!employee) {
+    return null;
+  }
 
   return (
     <Box
@@ -134,16 +208,45 @@ const Sidebar = () => {
               color={colors.grey[300]}
               sx={{ m: "15px 0 5px 20px" }}
             >
-              Catalog
+              Users
             </Typography>
             
-            <Item
-              title="Manage Team"
+            {/* <ItemWithSublinks
+            title="Manage Team"
+            // to="/Employees"
+            icon={<PeopleOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}
+            sublinks={[
+              {
+                title: "All Employees",
+                to: "/Employees",
+              },
+              {
+                title: "Invite Employee",
+                to: "/InviteEmployees",
+              },
+              // Add more sublinks as needed
+            ]}
+          /> */}
+          <SubMenu
+            title="Manage Team"
+            // to="/Employees"
+            icon={<PeopleOutlinedIcon />}
+            selected={selected}
+            setSelected={setSelected}>
+           
+            <Item 
+              title="All Employees"
               to="/Employees"
-              icon={<PeopleOutlinedIcon />}
               selected={selected}
-              setSelected={setSelected}
-            />
+              setSelected={setSelected}/> 
+            <Item 
+              title="Invite Employee"
+              to="/InviteEmployees"
+              selected={selected}
+              setSelected={setSelected}/> 
+          </SubMenu>
             <Item
               title="Contacts Information"
               to="/contacts"
@@ -223,6 +326,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            
           </Box>
         </Menu>
       </ProSidebar>
@@ -230,4 +334,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SideBar;

@@ -25,6 +25,19 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.cross{
+  @apply cursor-pointer absolute top-4 right-4 h-5 w-5
+}
+
+.active,.active h1{
+    color: #10823A;
+}
+
 html,
 body,
 #root,

@@ -283,6 +283,7 @@ import Header from "../../../../Components/common/Header";
 import { useTheme } from "@mui/material";
 import { getItems } from "./employeeService"; // Import your service function
 import TableImage from "../../../../Components/table/TableImage";
+import EditTableButton from "../../../../Components/table/EditTableButton"
 
 function EmployeeView({ 
   setIsEditModalOpen,
@@ -297,16 +298,13 @@ function EmployeeView({
       try {
         const response = await getItems(); // Fetch data using your service function
         // Map the response data to the format expected by the DataGrid
-        const mappedData = response.map(item => ({
+        const mappedData = response.map((item, index)=> ({
           id: item._id,
+          index: index + 1,
           image: item.image,
           name: item.name,
-          age: item.age,
           email: item.email,
-          phone: item.phone,
-          address: item.address,
-          city: item.city,
-          zipCode: item.zipCode,
+          level: item.level,
         }));
         setItems(mappedData); // Set the mapped data to the state
       } catch (error) {
@@ -318,7 +316,9 @@ function EmployeeView({
   }, []);
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 1.5 },
+    { field: "index", headerName: "#", flex: 1 },
+    { field: "name", headerName: "Name", flex: 4 },
+    { field: "email", headerName: "Email", flex: 4 },
     {
       field: "image",
       headerName: "Image",
@@ -329,24 +329,74 @@ function EmployeeView({
         </div>
       ),
     },
-    { field: "name", headerName: "Name", flex: 1 },
-    { field: "age", headerName: "Age", type: "number", headerAlign: "left", align: "left" },
-    { field: "email", headerName: "Email", flex: 1 },
-    { field: "phone", headerName: "Phone Number", flex: 1 },
-    { field: "address", headerName: "Address", flex: 1 },
-    { field: "city", headerName: "City", flex: 1 },
-    { field: "zipCode", headerName: "Zip Code", flex: 1 },
+   
+    // { field: "age", headerName: "Age", type: "number", headerAlign: "left", align: "left" },
+   
+    { field: "level", headerName: "Level", flex: 2 },
+    {
+      field: "action",
+      headerName: "Action",
+      flex: 1,
+      renderCell: (params) => (
+        <EditTableButton   
+          onClick={() => {
+          setSelectedItem(params.item)
+          setIsEditModalOpen(true)
+        }} />
+      ),
+    },
   ];
 
   return (
-    <Box m="20px">
-      <Header subtitle="List of Employees for Future Reference" />
-      <Box m="40px 0 0 0" height="75vh">
+    <Box m="0px">
+      <Header 
+      subtitle="List of Employees for Future Reference" 
+      />
+      <Box
+      m="40px 0 0 0"
+      height="75vh"
+
+      width="150vh"
+      overflowX="scroll"
+      sx={{
+        "& .MuiDataGrid-root": {
+          border: "none",
+          // width:  "1000px",
+          // marginLeft: "265px",
+        },
+        "& .MuiDataGrid-cell": {
+          borderBottom: "none",
+          color: colors.black,
+        },
+        "& .name-column--cell": {
+          color: colors.greenAccent[300],
+        },
+        "& .MuiDataGrid-columnHeaders": {
+          backgroundColor: colors.greenAccent[600],
+          borderBottom: "none",
+          fontSize: "14px"
+        },
+        "& .MuiDataGrid-virtualScroller": {
+          backgroundColor: colors.primary[400],
+        },
+        "& .MuiDataGrid-footerContainer": {
+          borderTop: "none",
+          backgroundColor: colors.greenAccent[600],
+        },
+        "& .MuiCheckbox-root": {
+          color: `${colors.greenAccent[200]} !important`,
+        },
+        "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+          color: `${colors.grey[100]} !important`,
+        },
+      }}
+      >
         <DataGrid
           rows={items}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           className="custom-data-grid"
+          style={{ overflowX: 'auto' }}
         />
       </Box>
     </Box>
