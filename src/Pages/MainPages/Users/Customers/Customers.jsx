@@ -1,80 +1,214 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
-import { getItems } from "./customerService"
+// import { getItems } from "./customerService"
 
+// import CustomerTable from "./CustomerTable";
+// import ViewCustomer from "./CustomerCRUD/ViewCustomer";
+// import EditCustomerProfile from "./CustomerCRUD/EditCustomerProfile";
+// import Modal from "../../../../Components/common/Modal"
+// import CreateOrder from "./CustomerCRUD/CreateOrder";
+// import AddCustomer from "./CustomerCRUD/AddCustomer";
+// import CustomerPageLayout from "../../../../Components/common/CustomerPageLayout";
+// import ViewDetailsButton from "../../../../Components/common/ViewDetailsButton";
+
+// function Customers() {
+
+//   const [customers, setCustomers] = useState([])
+//   const [toggleState, setToggleState] = useState(false)
+
+//   const [selectedCustomer, setSelectedCustomer] = useState(null)
+
+//   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
+//   const [isViewModalOpen, setIsViewModalOpen] = useState(false)
+//   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+
+//   const [errorMessage, setErrorMessage] = useState("")
+
+//   useEffect(() => {
+
+//     async function fetchData() {
+
+//       try {
+
+//         const response = await getItems()
+//         setCustomers(response)
+
+//       } catch (error) {
+
+//         setErrorMessage("Error customers. Please try again.")
+
+//       }
+
+//     }
+
+//     fetchData()
+
+//   }, [toggleState])
+
+//   function handleSuccess() {
+//     setToggleState((prevState) => !prevState)
+//   }
+
+//   const columns = [
+//     { field: "index", headerName: "#", flex: 0.1 },
+//     { field: "name", headerName: "Name", flex: 2 },
+//     { field: "email", headerName: "Email", flex: 3 },
+//     { field: "mobile", headerName: "Mobile", flex: 1 },
+//     { field: "group", headerName: "Group", flex: 1 },
+//     {
+//       renderCell: (params) => (
+//         <ViewDetailsButton
+//           label="Edit Profile"
+//           onClick={() => {
+//             setSelectedCustomer(params.customers?._id); 
+//             setIsEditModalOpen(true);
+//           }}
+//         />
+//       ),
+//     },
+//   ];
+
+//   return (
+//     <CustomerPageLayout
+//       title="All Customers"
+//       itemCount={customers?.totalCustomers}
+//       onAddClick={() => setIsAddModalOpen(true)}
+//     >
+
+//        {customers && customers.totalCustomers > 0 ? (
+//         <CustomerTable
+//           customers={customers?.data?.map((customer, index) => ({
+//             id: index + 1,
+//             name: customer?.firstName+" "+customer?.lastName,
+//             email: customer?.email,
+//             mobile: customer?.mobile,
+//             group: customer?.group,
+//             action:  <ViewDetailsButton
+//             label="Edit Profile"
+//             onClick={() => {
+//               setSelectedCustomer(customer?._id);
+//               setIsEditModalOpen(true);
+//             }}
+//           />
+//           }))}
+//           columns={columns}
+//           setIsViewModalOpen={setIsViewModalOpen}
+//           setIsEditModalOpen={setIsEditModalOpen}
+//           setSelectedCustomer={setSelectedCustomer}
+//         />
+//       ) : (
+//         <div>Loading...</div>
+//       )}
+
+//       {/* <CreateOrder
+//         customers={customers}
+//         // setIsViewModalOpen={setIsViewModalOpen}
+//         // setIsEditModalOpen = {setIsEditModalOpen}
+//         setSelectedCustomer={setSelectedCustomer}
+//       /> */}
+ 
+//      {isAddModalOpen && (
+//         <Modal>
+//           <AddCustomer
+//             onClose={() => setIsAddModalOpen(false)}
+//             onSuccess ={handleSuccess}
+//           />
+//         </Modal>
+//       )}
+
+//       {isViewModalOpen && (
+//         <Modal>
+//           <ViewCustomer
+//             customers={selectedCustomer}
+//             onClose={() => setIsViewModalOpen(false)}
+//             errorMessage={errorMessage}
+//           />
+//         </Modal>
+//       )}
+
+//       {isEditModalOpen && (
+//         <Modal>
+//           <EditCustomerProfile
+//            customer={selectedCustomer}
+//             onClose = {() => setIsEditModalOpen(false)}
+//             onEditSuccess = {handleSuccess}
+//           />
+//         </Modal>
+//       )}
+
+//     </CustomerPageLayout>
+
+//   )
+// }
+
+
+// export default Customers;
+
+
+import React, { useEffect, useState } from "react";
 import CustomerTable from "./CustomerTable";
+import CustomerPageLayout from "../../../../Components/common/CustomerPageLayout";
+import Modal from "../../../../Components/common/Modal";
+import AddCustomer from "./CustomerCRUD/AddCustomer";
 import ViewCustomer from "./CustomerCRUD/ViewCustomer";
 import EditCustomerProfile from "./CustomerCRUD/EditCustomerProfile";
-import Modal from "../../../../Components/common/Modal"
-import CreateOrder from "./CustomerCRUD/CreateOrder";
-import AddCustomer from "./CustomerCRUD/AddCustomer";
-import CustomerPageLayout from "../../../../Components/common/CustomerPageLayout";
-
+import { getItems } from "./customerService";
 
 function Customers() {
-
-  const [customers, setCustomers] = useState([])
-  const [toggleState, setToggleState] = useState(false)
-
-  const [selectedCustomer, setSelectedCustomer] = useState(null)
-
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false)
-  const [isViewModalOpen, setIsViewModalOpen] = useState(false)
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
-
-  const [errorMessage, setErrorMessage] = useState("")
+  const [customers, setCustomers] = useState([]);
+  const [toggleState, setToggleState] = useState(false);
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-
     async function fetchData() {
-
       try {
-
-        const response = await getItems()
-        setCustomers(response)
-
+        const response = await getItems();
+        setCustomers(response.data); // Assuming the customer data is in the 'data' property of the response object
       } catch (error) {
-
-        setErrorMessage("Error customers. Please try again.")
-
+        setErrorMessage("Error fetching customers. Please try again.");
       }
-
     }
-
-    fetchData()
-
-  }, [toggleState])
+    fetchData();
+  }, [toggleState]);
 
   function handleSuccess() {
-    setToggleState((prevState) => !prevState)
+    setToggleState((prevState) => !prevState);
   }
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <CustomerPageLayout
       title="All Customers"
       itemCount={customers.length}
       onAddClick={() => setIsAddModalOpen(true)}
     >
-
+      <input
+        type="text"
+        placeholder="Search customers..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="border border-gray-300 p-2 rounded-md mr-4"
+      />
       <CustomerTable
-        customers={customers}
+        customers={customers.filter((customer) =>
+          customer.name.toLowerCase().includes(searchTerm.toLowerCase())
+        )}
         setIsViewModalOpen={setIsViewModalOpen}
-        setIsEditModalOpen = {setIsEditModalOpen}
+        setIsEditModalOpen={setIsEditModalOpen}
         setSelectedCustomer={setSelectedCustomer}
       />
 
-{/* <CreateOrder
-        customers={customers}
-        // setIsViewModalOpen={setIsViewModalOpen}
-        // setIsEditModalOpen = {setIsEditModalOpen}
-        setSelectedCustomer={setSelectedCustomer}
-      /> */}
- 
-     {isAddModalOpen && (
+      {isAddModalOpen && (
         <Modal>
-          <AddCustomer
-            onClose={() => setIsAddModalOpen(false)}
-            onSuccess ={handleSuccess}
-          />
+          <AddCustomer onClose={() => setIsAddModalOpen(false)} onSuccess={handleSuccess} />
         </Modal>
       )}
 
@@ -88,20 +222,17 @@ function Customers() {
         </Modal>
       )}
 
-{isEditModalOpen && (
+      {isEditModalOpen && (
         <Modal>
           <EditCustomerProfile
-           customer={selectedCustomer}
-            onClose = {() => setIsEditModalOpen(false)}
-            onEditSuccess = {handleSuccess}
+            customer={selectedCustomer}
+            onClose={() => setIsEditModalOpen(false)}
+            onEditSuccess={handleSuccess}
           />
         </Modal>
       )}
-
     </CustomerPageLayout>
-
-  )
+  );
 }
-
 
 export default Customers;

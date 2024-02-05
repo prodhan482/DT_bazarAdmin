@@ -101,7 +101,7 @@ function AddCustomer({ onClose, onSuccess }) {
       />
 
       <label htmlFor="gender">Gender: </label>
-      <select id="gender" value={gender} onChange={(e) => setGender(e.target.value)}>
+      <select className="text-black" id="gender" value={gender} onChange={(e) => setGender(e.target.value)}>
         <option value="Female">Female</option>
         <option value="Male">Male</option>
       </select>
@@ -121,7 +121,7 @@ function AddCustomer({ onClose, onSuccess }) {
       <PasswordField setPassword={setPassword} label="Password" placeholder="Password" />
 
       <label htmlFor="group">Group: </label>
-      <select id="group" value={group} onChange={(e) => setGroup(e.target.value)}>
+      <select className="text-black" id="group" value={group} onChange={(e) => setGroup(e.target.value)}>
         <option value="general">General</option>
         <option value="shopKeeper">Shop Keeper</option>
         <option value="fraud">Fraud</option>

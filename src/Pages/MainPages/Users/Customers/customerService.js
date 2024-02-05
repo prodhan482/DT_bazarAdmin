@@ -13,8 +13,8 @@ const headers = {
   // 'Content-Type': 'multipart/form-data',
 };
 
-export async function getItems() {
-  const response = await axios.get(`${CUSTOMERS_API}/getAllCustomers`, { headers });
+export async function getItems(page,limit) {
+  const response = await axios.get(`${CUSTOMERS_API}/getAllCustomers/${page}/${limit}`, { headers });
   return response.data;
 }
 

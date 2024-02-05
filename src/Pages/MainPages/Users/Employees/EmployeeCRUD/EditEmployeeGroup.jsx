@@ -40,6 +40,7 @@ function EditEmployeeGroup({ item, onClose, onEditSuccess }) {
       onClose={onClose}
     >
           <select
+              className="text-black"
               id="level"
               value={level}
               onChange={(e) => setLevel(e.target.value)}
