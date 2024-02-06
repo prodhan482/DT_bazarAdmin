@@ -8,6 +8,12 @@ import TableRow from "../../../../../Components/table/TableRow"
 import TableBody from "../../../../../Components/table/TableBody"
 import TextEditorPageLayout from "../../../../../Components/common/TextEditorPageLayout"
 
+import { Box } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { tokens } from "../../../../../theme";
+import Header from "../../../../../Components/common/Header";
+import { useTheme } from "@mui/material";
+
 import { getLeaderCustomerByPlasticPoints } from "../customerService"
 
 function ViewLeaderCustomerByPlasticPoints() {
@@ -15,6 +21,9 @@ function ViewLeaderCustomerByPlasticPoints() {
   const [toggleState, setToggleState] = useState(false)
 
   const [errorMessage, setErrorMessage] = useState("")
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   useEffect(() => {
 
@@ -24,6 +33,14 @@ function ViewLeaderCustomerByPlasticPoints() {
 
         const response = await getLeaderCustomerByPlasticPoints()
         setLeaderCustomerByPlasticPoints(response)
+        leaderCustomerByPlasticPoints.map((leaderCustomerByPlasticPoints, index)=> ({
+          id: leaderCustomerByPlasticPoints._id,
+          index: index + 1,
+          image: leaderCustomerByPlasticPoints.image,
+          name: leaderCustomerByPlasticPoints.name,
+          email: leaderCustomerByPlasticPoints.email,
+          level: leaderCustomerByPlasticPoints.level,
+        }));
 
       } catch (error) {
 

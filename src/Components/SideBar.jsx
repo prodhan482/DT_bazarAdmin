@@ -274,25 +274,25 @@ const SideBar = () => {
               setSelected={setSelected}>
               <Item
                 title="All Product"
-                to="/Employees"
+                to="/Products"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />
               <Item
                 title="Product By Category"
-                to="/InviteEmployees"
+                to="/ProductbyCategory"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />
               <Item
                 title="Product By Sub-Category"
-                to="/Employees"
+                to="/ProductbySubCategory"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />
               <Item
                 title="Brand"
-                to="/Employees"
+                to="/Brand"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />
