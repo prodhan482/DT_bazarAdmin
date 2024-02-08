@@ -33,15 +33,7 @@ function ViewLeaderCustomerByPlasticPoints() {
 
         const response = await getLeaderCustomerByPlasticPoints()
         setLeaderCustomerByPlasticPoints(response)
-        leaderCustomerByPlasticPoints.map((leaderCustomerByPlasticPoints, index)=> ({
-          id: leaderCustomerByPlasticPoints._id,
-          index: index + 1,
-          image: leaderCustomerByPlasticPoints.image,
-          name: leaderCustomerByPlasticPoints.name,
-          email: leaderCustomerByPlasticPoints.email,
-          level: leaderCustomerByPlasticPoints.level,
-        }));
-
+       
       } catch (error) {
 
         setErrorMessage("Error Leader Customer by Plastic Points. Please try again.")
@@ -61,7 +53,20 @@ function ViewLeaderCustomerByPlasticPoints() {
     onAddClick={() => setIsAddModalOpen(true)}
     >
    
-    <Table>
+   <Box
+      m="40px 0 0 0"
+      height="75vh"
+
+      width="150vh"
+      overflowX="scroll"
+      sx={{
+        "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+          color: `${colors.grey[100]} !important`,
+        },
+      }}
+      >
+        {/* <GridToolbar> */}
+    <Table >
 
       <TableHeadingRow>
       
@@ -82,7 +87,8 @@ function ViewLeaderCustomerByPlasticPoints() {
         ))}
       </TableBody>
     </Table>
-   
+    {/* </GridToolbar> */}
+    </Box>
 </TextEditorPageLayout>
   )
 }

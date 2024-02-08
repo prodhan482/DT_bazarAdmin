@@ -268,51 +268,51 @@ export const mockDataInvoices = [
 
 export const mockTransactions = [
   {
-    txId: "01e4dsa",
+    txId: "000123456",
     user: "johndoe",
-    date: "2021-09-01",
+    date: "2024-02-07",
     cost: "43.95",
   },
   {
-    txId: "0315dsaa",
+    txId: "001234567",
     user: "jackdower",
-    date: "2022-04-01",
+    date: "2024-02-07",
     cost: "133.45",
   },
   {
-    txId: "01e4dsa",
-    user: "aberdohnny",
-    date: "2021-09-01",
+    txId: "001234568",
+    user: "johndoe",
+    date: "2024-02-07",
     cost: "43.95",
   },
   {
-    txId: "51034szv",
-    user: "goodmanave",
-    date: "2022-11-05",
+    txId: "001234569",
+    user: "johndoe",
+    date: "2024-02-07",
     cost: "200.95",
   },
   {
-    txId: "0a123sb",
-    user: "stevebower",
-    date: "2022-11-02",
+    txId: "001234570",
+    user: "johndoe",
+    date: "2024-02-07",
     cost: "13.55",
   },
   {
-    txId: "01e4dsa",
-    user: "aberdohnny",
-    date: "2021-09-01",
+    txId: "000123571",
+    user: "johndoe",
+    date: "2021-02-07",
     cost: "43.95",
   },
   {
-    txId: "120s51a",
-    user: "wootzifer",
-    date: "2019-04-15",
+    txId: "000123572",
+    user: "johndoe",
+    date: "2019-02-07",
     cost: "24.20",
   },
   {
-    txId: "0315dsaa",
-    user: "jackdower",
-    date: "2022-04-01",
+    txId: "000123573",
+    user: "johndoe",
+    date: "2022-02-07",
     cost: "133.45",
   },
 ];
@@ -322,8 +322,8 @@ export const mockBarData = [
     country: "AD",
     "hot dog": 137,
     "hot dogColor": "hsl(229, 70%, 50%)",
-    burger: 96,
-    burgerColor: "hsl(296, 70%, 50%)",
+    Potato: 96,
+    PotatoColor: "hsl(296, 70%, 50%)",
     kebab: 72,
     kebabColor: "hsl(97, 70%, 50%)",
     donut: 140,
@@ -333,8 +333,8 @@ export const mockBarData = [
     country: "AE",
     "hot dog": 55,
     "hot dogColor": "hsl(307, 70%, 50%)",
-    burger: 28,
-    burgerColor: "hsl(111, 70%, 50%)",
+    Potato: 28,
+    PotatoColor: "hsl(111, 70%, 50%)",
     kebab: 58,
     kebabColor: "hsl(273, 70%, 50%)",
     donut: 29,
@@ -344,8 +344,8 @@ export const mockBarData = [
     country: "AF",
     "hot dog": 109,
     "hot dogColor": "hsl(72, 70%, 50%)",
-    burger: 23,
-    burgerColor: "hsl(96, 70%, 50%)",
+    Potato: 23,
+    PotatoColor: "hsl(96, 70%, 50%)",
     kebab: 34,
     kebabColor: "hsl(106, 70%, 50%)",
     donut: 152,
@@ -355,8 +355,8 @@ export const mockBarData = [
     country: "AG",
     "hot dog": 133,
     "hot dogColor": "hsl(257, 70%, 50%)",
-    burger: 52,
-    burgerColor: "hsl(326, 70%, 50%)",
+    Potato: 52,
+    PotatoColor: "hsl(326, 70%, 50%)",
     kebab: 43,
     kebabColor: "hsl(110, 70%, 50%)",
     donut: 83,
@@ -366,8 +366,8 @@ export const mockBarData = [
     country: "AI",
     "hot dog": 81,
     "hot dogColor": "hsl(190, 70%, 50%)",
-    burger: 80,
-    burgerColor: "hsl(325, 70%, 50%)",
+    Potato: 80,
+    PotatoColor: "hsl(325, 70%, 50%)",
     kebab: 112,
     kebabColor: "hsl(54, 70%, 50%)",
     donut: 35,
@@ -377,8 +377,8 @@ export const mockBarData = [
     country: "AL",
     "hot dog": 66,
     "hot dogColor": "hsl(208, 70%, 50%)",
-    burger: 111,
-    burgerColor: "hsl(334, 70%, 50%)",
+    Potato: 111,
+    PotatoColor: "hsl(334, 70%, 50%)",
     kebab: 167,
     kebabColor: "hsl(182, 70%, 50%)",
     donut: 18,
@@ -388,8 +388,8 @@ export const mockBarData = [
     country: "AM",
     "hot dog": 80,
     "hot dogColor": "hsl(87, 70%, 50%)",
-    burger: 47,
-    burgerColor: "hsl(141, 70%, 50%)",
+    Potato: 47,
+    PotatoColor: "hsl(141, 70%, 50%)",
     kebab: 158,
     kebabColor: "hsl(224, 70%, 50%)",
     donut: 49,
@@ -432,53 +432,54 @@ export const mockPieData = [
 
 export const mockLineData = [
   {
-    id: "japan",
+    id: "Jatrabari",
     color: tokens("dark").greenAccent[500],
+    
     data: [
       {
-        x: "plane",
+        x: "Salt",
         y: 101,
       },
       {
-        x: "helicopter",
+        x: "Egg",
         y: 75,
       },
       {
-        x: "boat",
+        x: "Onion",
         y: 36,
       },
       {
-        x: "train",
+        x: "Potato",
         y: 216,
       },
       {
-        x: "subway",
+        x: "Broccoli",
         y: 35,
       },
       {
-        x: "bus",
+        x: "Carrot",
         y: 236,
       },
       {
-        x: "car",
+        x: "Tomato",
         y: 88,
       },
       {
-        x: "moto",
+        x: "Garlic",
         y: 232,
       },
-      {
-        x: "bicycle",
-        y: 281,
-      },
-      {
-        x: "horse",
-        y: 1,
-      },
-      {
-        x: "skateboard",
-        y: 35,
-      },
+      // {
+      //   x: "bicycle",
+      //   y: 281,
+      // },
+      // {
+      //   x: "horse",
+      //   y: 1,
+      // },
+      // {
+      //   x: "skateboard",
+      //   y: 35,
+      // },
       {
         x: "others",
         y: 14,
@@ -486,53 +487,53 @@ export const mockLineData = [
     ],
   },
   {
-    id: "france",
+    id: "Badda",
     color: tokens("dark").blueAccent[300],
     data: [
       {
-        x: "plane",
+        x: "Salt",
         y: 212,
       },
       {
-        x: "helicopter",
+        x: "Egg",
         y: 190,
       },
       {
-        x: "boat",
+        x: "Onion",
         y: 270,
       },
       {
-        x: "train",
+        x: "Potato",
         y: 9,
       },
       {
-        x: "subway",
+        x: "Broccoli",
         y: 75,
       },
       {
-        x: "bus",
+        x: "Carrot",
         y: 175,
       },
       {
-        x: "car",
+        x: "Tomato",
         y: 33,
       },
       {
-        x: "moto",
+        x: "Garlic",
         y: 189,
       },
-      {
-        x: "bicycle",
-        y: 97,
-      },
-      {
-        x: "horse",
-        y: 87,
-      },
-      {
-        x: "skateboard",
-        y: 299,
-      },
+      // {
+      //   x: "bicycle",
+      //   y: 97,
+      // },
+      // {
+      //   x: "horse",
+      //   y: 87,
+      // },
+      // {
+      //   x: "skateboard",
+      //   y: 299,
+      // },
       {
         x: "others",
         y: 251,
@@ -540,53 +541,53 @@ export const mockLineData = [
     ],
   },
   {
-    id: "us",
+    id: "Mirpur",
     color: tokens("dark").redAccent[200],
     data: [
       {
-        x: "plane",
+        x: "Salt",
         y: 191,
       },
       {
-        x: "helicopter",
+        x: "Egg",
         y: 136,
       },
       {
-        x: "boat",
+        x: "Onion",
         y: 91,
       },
       {
-        x: "train",
+        x: "Potato",
         y: 190,
       },
       {
-        x: "subway",
+        x: "Broccoli",
         y: 211,
       },
       {
-        x: "bus",
+        x: "Carrot",
         y: 152,
       },
       {
-        x: "car",
+        x: "Tomato",
         y: 189,
       },
       {
-        x: "moto",
+        x: "Garlic",
         y: 152,
       },
-      {
-        x: "bicycle",
-        y: 8,
-      },
-      {
-        x: "horse",
-        y: 197,
-      },
-      {
-        x: "skateboard",
-        y: 107,
-      },
+      // {
+      //   x: "bicycle",
+      //   y: 8,
+      // },
+      // {
+      //   x: "horse",
+      //   y: 197,
+      // },
+      // {
+      //   x: "skateboard",
+      //   y: 107,
+      // },
       {
         x: "others",
         y: 170,

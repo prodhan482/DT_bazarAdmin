@@ -16,7 +16,6 @@ function InviteEmployees() {
     setIsDeleteModalOpen(true);
   };
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -37,8 +36,8 @@ function InviteEmployees() {
   return (
     <div className="h-full w-full">
       <div className="flex flex-col justify-center items-center px-10">
-      <div className="w-full flex justify-between my-12">
-        <h1 className="text-xl font-bold text-[#313649]">
+      <div className="w-full flex justify-between my-6">
+        <h1 className="text-xl font-bold">
           All Invites ({items.length})
         </h1>
         <button

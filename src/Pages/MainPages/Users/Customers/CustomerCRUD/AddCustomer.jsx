@@ -13,6 +13,12 @@ import PasswordField from "../../../../../Components/common/PasswordField"
 import ImageUploader from "../../../../../Components/common/ImageUploader"
 import ToggleSwitch from "../../../../../Components/common/ToggleSwitch"
 
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
 function AddCustomer({ onClose, onSuccess }) {
 
   const [firstName, setFirstName] = useState("")
@@ -21,7 +27,7 @@ function AddCustomer({ onClose, onSuccess }) {
   const [mobile, setMobile] = useState("")
   const [gender, setGender] = useState("Female")
   const [password, setPassword] = useState("")
-  const [group, setGroup] = useState("General")
+  const [group, setGroup] = useState("general")
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null)
   const [isVerified, setIsVerified] = useState(false)
@@ -100,11 +106,23 @@ function AddCustomer({ onClose, onSuccess }) {
         required
       />
 
-      <label htmlFor="gender">Gender: </label>
+      {/* <label htmlFor="gender">Gender: </label>
       <select className="text-black" id="gender" value={gender} onChange={(e) => setGender(e.target.value)}>
         <option value="Female">Female</option>
         <option value="Male">Male</option>
-      </select>
+      </select> */}
+
+     {/* <FormLabel id="demo-row-radio-buttons-group-label">Gender:</FormLabel>
+      <RadioGroup
+        row
+        id="gender" value={gender} onChange={(e) => setGender(e.target.value)}
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+      >
+        <FormControlLabel value="female" control={<Radio style={{ color: 'blue'}}/>} label="Female" />
+        <FormControlLabel value="male" control={<Radio style={{ color: 'blue'}}/>} label="Male" />
+        <FormControlLabel value="other" control={<Radio style={{ color: 'blue'}}/>} label="Other" />
+      </RadioGroup> */}
 
       <EmailField label="Email"
         value={email}
@@ -113,19 +131,35 @@ function AddCustomer({ onClose, onSuccess }) {
         required
       />
 
-      <ImageUploader
+      {/* <ImageUploader
         imagePreview={imagePreview}
         handleImageChange={handleImageChange}
-      />
+      /> */}
 
       <PasswordField setPassword={setPassword} label="Password" placeholder="Password" />
 
-      <label htmlFor="group">Group: </label>
+      {/* <label htmlFor="group">Group: </label>
       <select className="text-black" id="group" value={group} onChange={(e) => setGroup(e.target.value)}>
         <option value="general">General</option>
         <option value="shopKeeper">Shop Keeper</option>
         <option value="fraud">Fraud</option>
-      </select>
+      </select> */}
+
+      {/* <FormLabel id="demo-row-radio-buttons-group-label">Group:</FormLabel>
+      <RadioGroup
+       row
+       id="group"
+       value={group}
+       onChange={(e) => setGroup(e.target.value)}
+      //  {console.log("🚀 ~ AddCustomer ~ setGroup(e.target.value):", setGroup(e.target.value))}
+       aria-labelledby="demo-row-radio-buttons-group-label"
+       name="row-radio-buttons-group"
+      >
+       <FormControlLabel value="general" control={<Radio style={{ color: 'blue'}}/>} label="General" />
+       <FormControlLabel value="shopKeeper" control={<Radio style={{ color: 'blue'}}/>} label="Shop Keeper" />
+       <FormControlLabel value="fraud" control={<Radio style={{ color: 'blue'}}/>} label="Fraud" />
+    
+      </RadioGroup>
 
       <ToggleSwitch
         id="isVerified"
@@ -133,7 +167,7 @@ function AddCustomer({ onClose, onSuccess }) {
         value={isVerified}
         checked={isVerified}
         onChange={() => setIsVerified(!isVerified)}
-      />
+      /> */}
 
       <ErrorMessage message={errorMessage} />
 

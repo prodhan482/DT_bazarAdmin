@@ -6,7 +6,7 @@ import ErrorMessage from "../../../../../Components/common/ErrorMessage"
 
 import { editEmployeeGroupChange } from "../employeeService"
 
-function EditEmployeeGroup({ item, onClose, onEditSuccess }) {
+function EditEmployeeGroup({ items, onClose, onEditSuccess }) {
 
   const [level, setLevel] = useState([])
 
@@ -19,7 +19,7 @@ function EditEmployeeGroup({ item, onClose, onEditSuccess }) {
 
     try {
 
-      await editEmployeeGroupChange(item._id, {
+      await editEmployeeGroupChange(items.id, {
         level: level,
       })
 

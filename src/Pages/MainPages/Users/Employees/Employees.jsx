@@ -5,8 +5,6 @@ import EditEmployeeGroup from "./EmployeeCRUD/EditEmployeeGroup";
 import Modal from "../../../../Components/common/Modal"
 
 import { getItems } from "./employeeService";
-console.log("🚀 ~ getItems:", getItems)
-
 
 export default function Employees() {
   const [items, setItems] = useState([]);
@@ -47,7 +45,7 @@ export default function Employees() {
       {isEditModalOpen && (
         <Modal>
           <EditEmployeeGroup
-            item = {selectedItem}
+            items = {selectedItem}
             onClose = {() => setIsEditModalOpen(false)}
             onEditSuccess = {handleSuccess}
           />

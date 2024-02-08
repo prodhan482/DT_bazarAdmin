@@ -337,12 +337,15 @@ function EmployeeView({
       field: "action",
       headerName: "Action",
       flex: 1,
-      renderCell: (params) => (
+      renderCell: (items) => (
         <EditTableButton   
-          onClick={() => {
-          setSelectedItem(params.item)
-          setIsEditModalOpen(true)
-        }} />
+        onClick={() => {
+            setSelectedItem(items);
+
+            // console.log(items)
+            setIsEditModalOpen(true);
+        }} 
+    />
       ),
     },
   ];
