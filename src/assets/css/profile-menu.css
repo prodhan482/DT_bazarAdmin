@@ -19,13 +19,22 @@ ul{
 }
   
   .dropdown-menu{
-    position: absolute;
+    /* position: absolute;
     top: 48px;
     right: 24px;
     background-color: #e5ece1;
     border-radius: 8px;
     padding: 10px 20px;
-    width: 200px;
+    width: 200px; */
+
+    position: absolute;
+    top: 58px;
+    right: 10px;
+    background-color: #e5ece1;
+    border-radius: 8px;
+    padding: 0px 5px;
+    width: 150px;
+    z-index: 1000;
   }
   
   .dropdown-menu::before{
@@ -107,6 +116,10 @@ ul{
   }
   .logout {
     color: red;
+  }
+
+  .dropdown-menu-text {
+    color: green;
   }
   
   

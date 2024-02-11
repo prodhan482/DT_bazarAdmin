@@ -10,6 +10,9 @@ import React, {useState, useEffect, useRef} from 'react';
 
 import { useLevels } from "../Utils/useLevels";
 
+import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import { IconButton } from "@mui/material";
+
 function ProfileMenu() {
 
   const [open, setOpen] = useState(false);
@@ -48,15 +51,20 @@ const navigate = useNavigate()
     <div className="App">
       <div ref={menuRef}>
         <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
-          <img width="30" src={AvaterImg}></img>
+          {/* <img width="30" src={AvaterImg}></img> */}
+          <IconButton>
+          <PersonOutlinedIcon />
+        </IconButton>
         </div>
 
         <div className={`dropdown-menu ${open? 'activedropdown' : 'inactivedropdown'}`} >
           {/* <h3>The Kiet<br/><span>Website Designer</span></h3> */}
           <ul>
+          <div className="dropdown-menu-text">
           {admin && (
-            <DropdownItem text = {"Change Password"} onClick={() => navigate(`/ChangePassword`)}/>
+            <DropdownItem text = {"Change Password"} onClick={() => navigate(`/ChangePassword`)} className="text-black"/>
             )}
+            </div>
             {/* <DropdownItem text = {"Edit Profile"}/>
             <DropdownItem text = {"Settings"}/> */}
             <div className="logout">

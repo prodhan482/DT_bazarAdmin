@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { DASHBOARD_API } from "../../../Utils/Api"
+import { DASHBOARD_API } from "../../../Utils/Api";
 
 import { getToken } from "../../../Utils/auth";
 
@@ -13,5 +13,15 @@ const headers = {
 
 export async function getItems() {
   const response = await axios.get(`${DASHBOARD_API}`,{ headers });
+  return response.data;
+}
+
+export async function getTodaysOrder() {
+  const response = await axios.get(`${DASHBOARD_API}/todaysOrder`,{ headers });
+  return response.data;
+}
+
+export async function getTrendingProducts() {
+  const response = await axios.get(`${DASHBOARD_API}/getTrendingProductsForAdmin`,{ headers });
   return response.data;
 }

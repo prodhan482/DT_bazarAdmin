@@ -33,12 +33,16 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 import RecyclingIcon from '@mui/icons-material/Recycling';
 
 import { getItems } from "./dashboardService";
+import { getTodaysOrder } from "./dashboardService";
+import { getTrendingProducts } from "./dashboardService";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
   const [dashboardCards, setDashboardCards] = useState("");
+  const [todaysOrder, setTodaysOrder] = useState([]);
+  const [treningProucts, setTreningProucts] = useState([]);
   const [toggleState, setToggleState] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -46,9 +50,12 @@ const Dashboard = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await getItems();
-        setDashboardCards(response);
-        
+        const dashboardCardData = await getItems();
+        const todaysOrderData = await getTodaysOrder();
+        const trendingProductsData = await getTrendingProducts();
+        setDashboardCards(dashboardCardData);
+        setTodaysOrder(todaysOrderData);
+        setTreningProucts(trendingProductsData);
       } catch (error) {
         setErrorMessage("Error Dashboard Cards. Please try again.");
       }
@@ -61,7 +68,11 @@ const Dashboard = () => {
     setToggleState((prevState) => !prevState);
   }
 
-  console.log(dashboardCards)
+  const formatDate = (date) => {
+    return date ? new Date(date).toISOString().split('T')[0] : '';
+  };
+
+  // console.log(todaysOrder[0].orderID)
   return (
     <Box m="20px">
       {/* HEADER */}
@@ -119,7 +130,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={dashboardCards?.lifetimeDeliveredSale?.totalDeliveredSaleAmount}
+            title={dashboardCards?.lifetimeSale?.totalDeliveredSaleAmount}
             subtitle="Total Delivered Ordered"
             // progress="0.50"
             // increase="+21%"
@@ -157,7 +168,7 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12345"
+            title={dashboardCards?.plasticConsumeCount}
             subtitle="Total Consumed Plastic"
             // progress="0.80"
             // increase="+43%"
@@ -225,12 +236,12 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Orders
+              Today's Orders ({todaysOrder.length})
             </Typography>
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          {todaysOrder?.map((todaysOrder, i) => (
             <Box
-              key={`${transaction.txId}-${i}`}
+              // key={`${todaysOrder._id}-${i}`}
               display="flex"
               justifyContent="space-between"
               alignItems="center"
@@ -243,19 +254,25 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {transaction.txId}
+                  {todaysOrder?.orderID}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {transaction.user}
+                  {todaysOrder?.customer?.firstName+" "+todaysOrder?.customer?.lastName}
+                </Typography>
+                <Typography color={colors.grey[100]}>
+                  {todaysOrder?.orderStatus}
+                </Typography>
+                <Typography color={colors.grey[100]}>
+                  Delivery Date: {formatDate(todaysOrder?.deliveryDate)}
                 </Typography>
               </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
+              {/* <Box color={colors.grey[100]}>{todaysOrder.date}</Box> */}
               <Box
                 backgroundColor={colors.greenAccent[500]}
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ৳ {transaction.cost}
+                ৳ {todaysOrder?.total}
               </Box>
             </Box>
           ))}
@@ -304,7 +321,7 @@ const Dashboard = () => {
             <BarChart isDashboard={true} />
           </Box>
         </Box>
-        <Box
+        {/* <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -320,6 +337,63 @@ const Dashboard = () => {
           <Box height="200px">
             <GeographyChart isDashboard={true} />
           </Box>
+        </Box> */}
+
+<Box
+          gridColumn="span 4"
+          gridRow="span 2"
+          backgroundColor={colors.primary[400]}
+          overflow="auto"
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary[500]}`}
+            colors={colors.grey[100]}
+            p="15px"
+          >
+            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
+              Trending Products ({treningProucts.length})
+            </Typography>
+          </Box>
+          {treningProucts?.map((treningProucts, i) => (
+            <Box
+              // key={`${todaysOrder._id}-${i}`}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              borderBottom={`4px solid ${colors.primary[500]}`}
+              p="15px"
+            >
+              <Box>
+                <Typography
+                  color={colors.greenAccent[500]}
+                  variant="h5"
+                  fontWeight="600"
+                >
+                  {treningProucts?.product?.name}
+                </Typography>
+                <Typography color={colors.grey[100]}>
+                  SKU: {treningProucts?.product?.sku}
+                </Typography>
+                <Typography color={colors.grey[100]}>
+                  Quantity: {treningProucts?.product?.quantity}
+                </Typography>
+                <Typography color={colors.grey[100]}>
+                  Quantity: {treningProucts?.quantity}
+                </Typography>
+              </Box>
+              {/* <Box color={colors.grey[100]}>{todaysOrder.date}</Box> */}
+              <Box
+                backgroundColor={colors.greenAccent[500]}
+                p="5px 10px"
+                borderRadius="4px"
+              >
+                ৳ {treningProucts?.product?.price}
+              </Box>
+            </Box>
+          ))}
         </Box>
       </Box>
     </Box>

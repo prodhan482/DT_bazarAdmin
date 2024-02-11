@@ -56,9 +56,9 @@ function Navbar() {
         <IconButton>
           <SettingsOutlinedIcon />
         </IconButton> */}
-        <IconButton>
-          <PersonOutlinedIcon />
-        </IconButton>
+       
+          <ProfileMenu />
+       
       </Box>
     </Box>
   );
