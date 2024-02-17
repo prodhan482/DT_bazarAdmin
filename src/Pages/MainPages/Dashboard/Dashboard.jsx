@@ -378,10 +378,10 @@ const Dashboard = () => {
                   SKU: {treningProucts?.product?.sku}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  Quantity: {treningProucts?.product?.quantity}
+                  Stock: {treningProucts?.product?.quantity}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  Quantity: {treningProucts?.quantity}
+                  Sell: {treningProucts?.quantity}
                 </Typography>
               </Box>
               {/* <Box color={colors.grey[100]}>{todaysOrder.date}</Box> */}

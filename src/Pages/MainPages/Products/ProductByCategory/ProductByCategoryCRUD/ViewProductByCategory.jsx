@@ -15,6 +15,8 @@ import TableImage from "../../../../../Components/table/TableImage";
 
 import { getProductByCategory } from "../productByCategoryService"
 
+
+
 function ViewProductByCategoryTable() {
   const { id } = useParams();
   const [productByCategory, setProductByCategory] = useState([])
