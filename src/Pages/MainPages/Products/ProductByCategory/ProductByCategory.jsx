@@ -8,6 +8,7 @@ import ViewDetailsButton from "../../../../Components/common/ViewDetailsButton";
 import ViewDetailsText from "../../../../Components/common/ViewDetailsText";
 
 import { useNavigate } from "react-router-dom";
+import TableImage from "../../../../Components/table/TableImage";
 
 function ProductByCategory() {
 
@@ -49,10 +50,29 @@ function ProductByCategory() {
     setToggleState((prevState) => !prevState)
   }
 
+  function handleViewCategory(id) {
+    navigate(`/ViewProductByCategory/${id}`);
+  }
+
   const columns = [
     { field: "index", headerName: "#", flex: 1 },
-    { field: "image", headerName: "Image", flex: 2 },
-    { field: "name", headerName: "Name", flex: 3 },
+    { field: "image", headerName: "Image", flex: 1.5,
+    renderCell: (params) => (
+      <div style={{ display: 'flex', alignItems: 'center', width: '100%', height: '100%' }}>
+        <TableImage img={params.value} style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
+      </div>
+    ),
+   },
+   {
+    field: "name",
+    headerName: "Name",
+    flex: 3,
+    renderCell: (params) => (
+      <div onClick={() => handleViewCategory(params.row.id)} style={{ cursor: "pointer", color:"#70d8bd"}}>
+        {params.value}
+      </div>
+    ),
+  },
     { field: "precedence", headerName: "Precedence", flex: 2 },
     { field: "active", headerName: "Active", flex: 2 },
     { field: "discount", headerName: "Discount", flex: 2 },
@@ -77,25 +97,17 @@ function ProductByCategory() {
         category={category?.map((category, index) => ({
             id: category?._id,
             index: index + 1,
-            name:  
-            <ViewDetailsText
-            label={category?.name}
-            onClick={() =>  navigate(`/ViewProductByCategory/${id}`)}
-          />,
+            image: category?.image,
+            name: category?.name,
+          //   <ViewDetailsText
+          //   label={category?.name}
+          //   onClick={() =>  navigate(`/ViewProductByCategory/${id}`)}
+          // />,
           precedence: category?.precedence,
-          active: `${category.isActive}`
-            // email: category?.email,
-            // mobile: category?.mobile,
-            // group: category?.group,
-            // action: (
-            //   <ViewDetailsButton
-            //     label="Edit Profile"
-            //     onClick={() => {
-            //       setSelectedCustomer(id);
-            //       setIsEditModalOpen(true);
-            //     }}
-            //   />
-            // ),
+          active: `${category.isActive}`,
+          discount: `${category.isDiscount}`,
+          discountType: category?.discountType,
+          discountAmount: category?.discountAmount,
           }))}
           columns={columns}
           setIsViewModalOpen={setIsViewModalOpen}

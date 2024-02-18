@@ -234,6 +234,7 @@ const Dashboard = () => {
             borderBottom={`4px solid ${colors.primary[500]}`}
             colors={colors.grey[100]}
             p="15px"
+
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
               Today's Orders ({todaysOrder.length})

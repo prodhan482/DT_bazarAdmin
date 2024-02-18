@@ -39,6 +39,13 @@ function ProductBySubCategory() {
     setToggleState((prevState) => !prevState)
   }
 
+  const columns = [
+    { field: "index", headerName: "#", flex: 1 },
+    { field: "name", headerName: "Name", flex: 3},
+    { field: "precedence", headerName: "Precedence", flex: 2 },
+    { field: "active", headerName: "Active", flex: 2 },
+  ];
+
   return (
 
     <TextEditorPageLayout
@@ -47,12 +54,32 @@ function ProductBySubCategory() {
       
     >
 
-      <ProductBySubCategoryTable
+      {/* <ProductBySubCategoryTable
         subCategory={subCategory}
         setSelectedSubCategory = {setSelectedSubCategory}
-      />
+      /> */}
 
-      
+      {subCategory && subCategory.length > 0 ? (
+        <ProductBySubCategoryTable
+        subCategory={subCategory?.map((category, index) => ({
+            id: category?._id,
+            index: index + 1,
+            name: category?.name,
+          //   <ViewDetailsText
+          //   label={category?.name}
+          //   onClick={() =>  navigate(`/ViewProductByCategory/${id}`)}
+          // />,
+          precedence: category?.precedence,
+          active: `${category.isActive}`,
+          }))}
+          columns={columns}
+          // setIsViewModalOpen={setIsViewModalOpen}
+          // setIsEditModalOpen={setIsEditModalOpen}
+          setSelectedSubCategory={setSelectedSubCategory}
+        />
+      ) : (
+        <div>Loading...</div>
+      )}
 
     </TextEditorPageLayout>
 

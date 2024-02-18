@@ -127,8 +127,7 @@ function ProductByCategoryTable({
   columns
 }) {
   const navigate = useNavigate();
-  const { admin, cs, cx, executive, operationEmployee, marketing } =
-    useLevels();
+  const { admin, cs, cx, executive, operationEmployee, marketing } = useLevels();
 
   const handleNextPageChange = () => {
     setPage(page + 1);
@@ -188,7 +187,7 @@ function ProductByCategoryTable({
 
           <DataGrid
           rows={category}
-          columns={columns} // Use columns prop
+          columns={columns} 
           components={{ Toolbar: GridToolbar }}
           className="custom-data-grid"
           style={{ overflowX: "auto" }}

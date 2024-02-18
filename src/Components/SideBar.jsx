@@ -298,7 +298,7 @@ const SideBar = () => {
                 setSelected={setSelected} />
               <Item
                 title="Quick Ads"
-                to="/Employees"
+                to="/QuickAds"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />

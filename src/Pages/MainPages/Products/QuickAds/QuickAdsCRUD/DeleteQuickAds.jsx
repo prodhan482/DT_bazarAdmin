@@ -25,7 +25,7 @@ function DeleteQuickAds({ quickAds, onClose, onDeleteSuccess }) {
     <DeleteConfirm
       title={"Delete Quick Ads"}
       handleDelete={handleDelete}
-      id={quickAds._id}
+      id={quickAds.id}
       onClose={onClose}
       errorMessage={errorMessage}
     />

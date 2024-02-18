@@ -1,7 +1,15 @@
+import { tokens, ColorModeContext } from "../../theme";
+import { useTheme } from "@mui/material";
+import { useContext, useEffect } from "react";
+
 function ProductDropDown({ label, options, value, onChange, required }) {
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const { toggleColorMode } = useContext(ColorModeContext);
+
   return (
     <div className="mb-4">
-      <label className="block text-sm font-medium text-gray-700">{label}</label>
+      <label className="block text-sm font-medium">{label}</label>
       <div className="relative">
         <select
           value={value !== undefined ? value : ""}
@@ -9,7 +17,7 @@ function ProductDropDown({ label, options, value, onChange, required }) {
             onChange(e.target.value);
           }}
           required={required}
-          className="appearance-none block w-full bg-white border border-gray-300 rounded-md py-2 px-3 leading-tight focus:outline-none focus:ring focus:border-blue-300"
+          className="appearance-none block w-full bg-white border border-gray-300 rounded-md py-2 px-3 leading-tight focus:outline-none focus:ring focus:border-blue-300" style={{ color: colors.primary[700]}}
         >
           <option value="" disabled>
             Select {label}

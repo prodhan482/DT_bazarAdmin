@@ -15,8 +15,8 @@ import ProductDropDown from "../../../../../Components/common/ProductDropDown"
 function EditQuickAds({ quickAds, onClose, onEditSuccess }) {
 
     const [product, setProduct] = useState([])
-    const [selectedProduct, setSelectedProduct] = useState(quickAds.product._id)
-    const [precedence, setPrecedence] = useState(quickAds.precedence)
+    const [selectedProduct, setSelectedProduct] = useState(quickAds?.id)
+    const [precedence, setPrecedence] = useState(quickAds?.precedence)
 
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -42,7 +42,7 @@ function EditQuickAds({ quickAds, onClose, onEditSuccess }) {
 
         try {
 
-            await editItem(quickAds._id, {
+            await editItem(quickAds.id, {
                 product: selectedProduct,
                 precedence: parseInt(precedence),
 
@@ -66,6 +66,7 @@ function EditQuickAds({ quickAds, onClose, onEditSuccess }) {
         >
 
             <ProductDropDown
+               className="text-black"
                 label="Product"
                 options={product}
                 value={selectedProduct}

@@ -11,13 +11,13 @@ import Modal from "../../../../Components/common/Modal"
 import { getItems } from "./quickAdsService"
 
 import { useLevels } from "../../../../Utils/useLevels"
+import EditTableButton from "../../../../Components/table/EditTableButton"
+import DeleteTableButton from "../../../../Components/table/DeleteTableButton"
 
 
 function QuickAds() {
 
   const {admin} = useLevels()
-
-  
 
   const [quickAds, setQuickAds] = useState([])
   const [toggleState, setToggleState] = useState(false)
@@ -56,21 +56,77 @@ function QuickAds() {
     setToggleState((prevState) => !prevState)
   }
 
+  const columns = [
+    { field: "index", headerName: "#", flex: 0.2 },
+    { field: "name", headerName: "Product", flex: 2 },
+    { field: "precedence", headerName: "Precedence", flex: 1 },
+    // { field: "isHome", headerName: "Is Home", flex: 1 },
+    {
+      field: "action",
+      headerName: "Action",
+      flex: 0.4,
+      renderCell: (params) => (
+        <div  style={{ display: 'flex', gap: '8px' }}>
+          <EditTableButton 
+            onClick={() => {
+              setSelectedQuickAds(params.row);
+              setIsEditModalOpen(true);
+            }}
+          />
+          
+          <DeleteTableButton
+            onClick={() => {
+              setSelectedQuickAds(params.row);
+              setIsDeleteModalOpen(true);
+            }}
+          />
+        </div>
+      ),
+    },
+  ];
+
   return (
 
     <PageLayout
-      title = "All Quick Ads"
-      itemCount = {quickAds.length}
+      title = "Quick Ads"
+      // itemCount = {quickAds.length}
       onAddClick={() => setIsAddModalOpen(true)}
     >
 
-      <QuickAdsTable
+      {/* <QuickAdsTable
         quickAds={quickAds}
         setIsViewModalOpen = {setIsViewModalOpen}
         setIsEditModalOpen = {setIsEditModalOpen}
         setIsDeleteModalOpen = {setIsDeleteModalOpen}
         setSelectedQuickAds = {setSelectedQuickAds}
-      />
+      /> */}
+
+       {quickAds && quickAds.length > 0 ? (
+        <QuickAdsTable
+        quickAds={quickAds?.map((quickAds, index) => ({
+            id: quickAds?._id,
+            index: index + 1,
+            name: quickAds?.name,
+            precedence: quickAds?.precedence,
+            isHome: quickAds?.isHome,
+            // action: (
+            //   <ViewDetailsButton
+            //     label="Edit Profile"
+            //     onClick={() => {
+            //       setSelectedCustomer(id);
+            //       setIsEditModalOpen(true);
+            //     }}
+            //   />
+            // ),
+          }))}
+          columns={columns}
+          setIsViewModalOpen={setIsViewModalOpen}
+          setIsEditModalOpen={setIsEditModalOpen}
+          setSelectedQuickAds={setSelectedQuickAds}
+        />
+      ) : (
+        <div>Loading...</div>
+      )}
 
       {isViewModalOpen && (
         <Modal>

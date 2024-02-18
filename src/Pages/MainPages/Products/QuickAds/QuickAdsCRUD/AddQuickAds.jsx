@@ -70,10 +70,11 @@ function AddQuickAds({ onClose, onSuccess }) {
                 options={product}
                 value={selectedProduct}
                 onChange={setSelectedProduct}
+                style={{ color: "black" }}
                 required
             />
 
-            <PrecedenceField value={precedence} onChange={setPrecedence} />
+            <PrecedenceField value={precedence} onChange={setPrecedence} style={{ color: "black" }}/>
 
             <ErrorMessage message={errorMessage} />
 
