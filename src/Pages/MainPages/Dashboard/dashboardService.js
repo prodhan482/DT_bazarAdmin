@@ -16,6 +16,11 @@ export async function getItems() {
   return response.data;
 }
 
+export async function getTodayesReport() {
+  const response = await axios.get(`${DASHBOARD_API}/todaysReport`,{ headers });
+  return response.data;
+}
+
 export async function getTodaysOrder() {
   const response = await axios.get(`${DASHBOARD_API}/todaysOrder`,{ headers });
   return response.data;

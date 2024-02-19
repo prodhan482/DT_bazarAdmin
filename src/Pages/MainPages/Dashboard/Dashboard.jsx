@@ -1,7 +1,7 @@
 // import React from 'react';
 // import "./Dashboard.css"
 // function Dashboard() {
-//     return ( 
+//     return (
 //         <div className='content'>
 //            <h1 className='text-3xl font-bold underline text-primary '> Hello this is Dashboard page!</h1>
 //         </div>
@@ -27,12 +27,13 @@ import BarChart from "../../../Components/DashboardComponents/BarChart";
 import StatBox from "../../../Components/DashboardComponents/StatBox";
 import ProgressCircle from "../../../Components/DashboardComponents/ProgressCircle";
 
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import NoCrashIcon from '@mui/icons-material/NoCrash';
-import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
-import RecyclingIcon from '@mui/icons-material/Recycling';
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import NoCrashIcon from "@mui/icons-material/NoCrash";
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import RecyclingIcon from "@mui/icons-material/Recycling";
 
 import { getItems } from "./dashboardService";
+import { getTodayesReport } from "./dashboardService";
 import { getTodaysOrder } from "./dashboardService";
 import { getTrendingProducts } from "./dashboardService";
 
@@ -41,9 +42,12 @@ const Dashboard = () => {
   const colors = tokens(theme.palette.mode);
 
   const [dashboardCards, setDashboardCards] = useState("");
+  const [todaysReport, setTodaysReport] = useState("");
   const [todaysOrder, setTodaysOrder] = useState([]);
   const [treningProucts, setTreningProucts] = useState([]);
   const [toggleState, setToggleState] = useState(false);
+
+  const [currentDateTime, setCurrentDateTime] = useState(new Date());
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -51,9 +55,11 @@ const Dashboard = () => {
     async function fetchData() {
       try {
         const dashboardCardData = await getItems();
+        const todaysReportData = await getTodayesReport();
         const todaysOrderData = await getTodaysOrder();
         const trendingProductsData = await getTrendingProducts();
         setDashboardCards(dashboardCardData);
+        setTodaysReport(todaysReportData);
         setTodaysOrder(todaysOrderData);
         setTreningProucts(trendingProductsData);
       } catch (error) {
@@ -69,8 +75,16 @@ const Dashboard = () => {
   }
 
   const formatDate = (date) => {
-    return date ? new Date(date).toISOString().split('T')[0] : '';
+    return date ? new Date(date).toISOString().split("T")[0] : "";
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDateTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // console.log(todaysOrder[0].orderID)
   return (
@@ -92,9 +106,20 @@ const Dashboard = () => {
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
             Download Reports
           </Button> */}
+
+          {/* <Typography variant="h5" gutterBottom>
+        Today's Date and Time:
+      </Typography> */}
+          <Typography variant="h3">
+            {currentDateTime.toLocaleString()}{" "}
+            {/* Adjust formatting as needed */}
+          </Typography>
         </Box>
       </Box>
 
+      <Typography variant="h4" gutterBottom>
+        Today's Report:
+      </Typography>
       {/* GRID & CHARTS */}
       <Box
         display="grid"
@@ -111,8 +136,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={dashboardCards?.lifetimeSale?.totalSaleAmount}
-            subtitle="Lifetime Sales"
+            title={`৳ ${todaysReport?.todaysTotalOrderValue}`}
+            // subtitle="Lifetime Sales"
+            subtitle="Total Order Amount"
             // progress="0.75"
             // increase="+14%"
             icon={
@@ -120,6 +146,85 @@ const Dashboard = () => {
                 sx={{ color: colors.green, fontSize: "26px" }}
               />
             }
+          />
+          <StatBox
+            title={todaysReport?.todayOrders?.length}
+            // subtitle="Lifetime Sales"
+            subtitle="Total Order Count"
+            // progress="0.75"
+            // increase="+14%"
+            // icon={
+            //   <RecyclingIcon
+            //     sx={{ color: colors.green, fontSize: "26px" }}
+            //   />
+            // }
+          />
+
+          {/* <Box ml={2}>
+        <Typography variant="body1" color="textSecondary">
+          Additional Information
+        </Typography>
+      </Box> */}
+        </Box>
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.greenAccent[700]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={`৳ ${todaysReport?.todaysTotalDeliveredOrderValue}`}
+            subtitle="Total Delivered Order Amount"
+            // progress="0.50"
+            // increase="+21%"
+            icon={
+              <NoCrashIcon sx={{ color: colors.green, fontSize: "26px" }} />
+            }
+          />
+          <StatBox
+            title={todaysReport?.todaysOrderDelivered?.length}
+            // subtitle="Lifetime Sales"
+            subtitle="Total Delivered Order Count"
+            // progress="0.75"
+            // increase="+14%"
+            // icon={
+            //   <RecyclingIcon
+            //     sx={{ color: colors.green, fontSize: "26px" }}
+            //   />
+            // }
+          />
+        </Box>
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.blueAccent[700]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={`৳ ${todaysReport?.todaysTotalPendingOrderValue}`}
+            // subtitle="Total Customers"
+            subtitle="Total Pending Order Amount"
+            // progress="0.30"
+            // increase="+5%"
+            icon={
+              <PeopleOutlineIcon
+                sx={{ color: colors.green, fontSize: "26px" }}
+              />
+            }
+          />
+          <StatBox
+            title={todaysReport?.todaysOrderPending?.length}
+            // subtitle="Total Customers"
+            subtitle="Total Pending Order Count"
+            // progress="0.30"
+            // increase="+5%"
+            // icon={
+            //   <PeopleOutlineIcon
+            //     sx={{ color: colors.green, fontSize: "26px" }}
+            //   />
+            // }
           />
         </Box>
         <Box
@@ -130,15 +235,98 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={dashboardCards?.lifetimeSale?.totalDeliveredSaleAmount}
-            subtitle="Total Delivered Ordered"
-            // progress="0.50"
-            // increase="+21%"
+            title={`৳ ${todaysReport?.todaysTotalCanceledOrderValue}`}
+            // subtitle="Total Consumed Plastic"
+            subtitle="Total Canceled Order Amount"
+            // progress="0.80"
+            // increase="+43%"
             icon={
-              <NoCrashIcon
+              <RecyclingIcon sx={{ color: colors.green, fontSize: "26px" }} />
+            }
+          />
+          <StatBox
+            title={`Count: ${todaysReport?.todaysOrderCanceled?.length}`}
+            // subtitle="Total Customers"
+            // subtitle="Total Pending Order Count"
+            // progress="0.30"
+            // increase="+5%"
+            // icon={
+            //   <PeopleOutlineIcon
+            //     sx={{ color: colors.green, fontSize: "26px" }}
+            //   />
+            // }
+          />
+        </Box>
+
+        {/* <Typography variant="h4" gutterBottom>
+        Lifetime Sales Report:
+      </Typography> */}
+
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.blueAccent[700]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={`৳ ${dashboardCards?.lifetimeSale?.totalSaleAmount}`}
+            subtitle="Lifetime Sales"
+            // subtitle="Total Order"
+            // progress="0.75"
+            // increase="+14%"
+            icon={
+              <MonetizationOnIcon
                 sx={{ color: colors.green, fontSize: "26px" }}
               />
             }
+          />
+          <StatBox
+            title={dashboardCards?.lifetimeSale?.lifetimeOrder}
+            subtitle="Lifetime Order Count"
+            // subtitle="Total Plastic"
+            // progress="0.75"
+            // increase="+14%"
+            // icon={
+            //   <RecyclingIcon
+            //     sx={{ color: colors.green, fontSize: "26px" }}
+            //   />
+            // }
+          />
+
+          {/* <Box ml={2}>
+        <Typography variant="body1" color="textSecondary">
+          Additional Information
+        </Typography>
+      </Box> */}
+        </Box>
+        <Box
+          gridColumn="span 3"
+          backgroundColor={colors.greenAccent[700]}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <StatBox
+            title={`৳ ${dashboardCards?.lifetimeSale?.totalDeliveredSaleAmount}`}
+            subtitle="LifeTime Delivered Order"
+            // progress="0.50"
+            // increase="+21%"
+            icon={
+              <NoCrashIcon sx={{ color: colors.green, fontSize: "26px" }} />
+            }
+          />
+          <StatBox
+            title={dashboardCards?.lifetimeSale?.lifetimeDeliveredOrder}
+            // subtitle="Lifetime Sales"
+            subtitle="Lifetime Delivered Count"
+            // progress="0.75"
+            // increase="+14%"
+            // icon={
+            //   <MonetizationOnIcon
+            //     sx={{ color: colors.green, fontSize: "26px" }}
+            //   />
+            // }
           />
         </Box>
         <Box
@@ -151,6 +339,7 @@ const Dashboard = () => {
           <StatBox
             title={dashboardCards?.totalCustomer}
             subtitle="Total Customers"
+            // subtitle="Total Pending Order Value"
             // progress="0.30"
             // increase="+5%"
             icon={
@@ -170,17 +359,27 @@ const Dashboard = () => {
           <StatBox
             title={dashboardCards?.plasticConsumeCount}
             subtitle="Total Consumed Plastic"
+            // subtitle="Total Canceled Order Value"
             // progress="0.80"
             // increase="+43%"
             icon={
-              <RecyclingIcon
-                sx={{ color: colors.green, fontSize: "26px" }}
-              />
+              <RecyclingIcon sx={{ color: colors.green, fontSize: "26px" }} />
+            }
+          />
+          <StatBox
+            title={dashboardCards?.totalPlasticReturn}
+            subtitle="Total Return Plastic"
+            // subtitle="Total Canceled Order Value"
+            // progress="0.80"
+            // increase="+43%"
+            icon={
+              <RecyclingIcon sx={{ color: colors.green, fontSize: "26px" }} />
             }
           />
         </Box>
 
         {/* ROW 2 */}
+
         <Box
           gridColumn="span 8"
           gridRow="span 2"
@@ -234,7 +433,6 @@ const Dashboard = () => {
             borderBottom={`4px solid ${colors.primary[500]}`}
             colors={colors.grey[100]}
             p="15px"
-
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
               Today's Orders ({todaysOrder.length})
@@ -258,7 +456,9 @@ const Dashboard = () => {
                   {todaysOrder?.orderID}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  {todaysOrder?.customer?.firstName+" "+todaysOrder?.customer?.lastName}
+                  {todaysOrder?.customer?.firstName +
+                    " " +
+                    todaysOrder?.customer?.lastName}
                 </Typography>
                 <Typography color={colors.grey[100]}>
                   {todaysOrder?.orderStatus}
@@ -303,7 +503,9 @@ const Dashboard = () => {
             >
               $48,352 revenue generated
             </Typography>
-            <Typography>Lorem ipsum dolor sit amet consectetur adipisicing elit.</Typography>
+            <Typography>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </Typography>
           </Box>
         </Box>
         <Box
@@ -340,7 +542,7 @@ const Dashboard = () => {
           </Box>
         </Box> */}
 
-<Box
+        <Box
           gridColumn="span 4"
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -355,7 +557,7 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Trending Products ({treningProucts.length})
+              Top Selling Products ({treningProucts.length})
             </Typography>
           </Box>
           {treningProucts?.map((treningProucts, i) => (
