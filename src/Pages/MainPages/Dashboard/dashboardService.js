@@ -30,3 +30,8 @@ export async function getTrendingProducts() {
   const response = await axios.get(`${DASHBOARD_API}/getTrendingProductsForAdmin`,{ headers });
   return response.data;
 }
+
+export async function getLastSevenDaysReport() {
+  const response = await axios.get(`${DASHBOARD_API}/lastSevenDaysOrderReport`,{ headers });
+  return response.data;
+}

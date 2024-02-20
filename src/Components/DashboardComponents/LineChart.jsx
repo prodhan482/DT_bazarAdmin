@@ -1,15 +1,86 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
-import { mockLineData as data } from "../../../src/data/mockData";
+import { getLastSevenDaysReport } from "../../Pages/MainPages/Dashboard/dashboardService";
+import { useEffect, useState } from "react";
 
 const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [lastSevenDaysReport, setLastSevenDaysReport] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const lastSevenDaysReportData = await getLastSevenDaysReport();
+        setLastSevenDaysReport(lastSevenDaysReportData);
+      } catch (error) {
+        setErrorMessage(
+          "Error fetching last seven days report. Please try again."
+        );
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  const formatLineChartDate = (dateString) => {
+    const date = new Date(dateString);
+    const isoString = date.toISOString();
+    const day = isoString.split("T")[0].split("-")[2];
+    const month = date.toLocaleString("default", { month: "short" });
+    // const year = isoString.split("-")[0];
+    return `${day} ${month}`;
+  };
+
+  // const lineData = [
+  //   {
+  //     id: "Order Count",
+  //     color: tokens("dark").greenAccent[500],
+  //     data: lastSevenDaysReport.map((report) => ({
+  //       x: formatLineChartDate(report.date),
+  //       y: report.orderCount,
+  //     })),
+  //   },
+
+  //   {
+  //     id: "Order Value",
+  //     color: tokens("dark").blueAccent[500],
+  //     data: lastSevenDaysReport.map((report) => ({
+  //       x: formatLineChartDate(report.date),
+  //       y: report.orderValue,
+  //     })),
+  //   },
+  // ];
+
+  const sortedReports = lastSevenDaysReport.sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
+  );
+
+  const lineData = [
+    {
+      id: "Order Count",
+      color: tokens("dark").greenAccent[500],
+      data: sortedReports.map((report) => ({
+        x: formatLineChartDate(report.date),
+        y: report.orderCount,
+      })),
+    },
+    {
+      id: "Order Value",
+      color: tokens("dark").blueAccent[500],
+      data: sortedReports.map((report) => ({
+        x: formatLineChartDate(report.date),
+        y: report.orderValue,
+      })),
+    },
+  ];
+
   return (
     <ResponsiveLine
-      data={data}
+      data={lineData}
       theme={{
         axis: {
           domain: {

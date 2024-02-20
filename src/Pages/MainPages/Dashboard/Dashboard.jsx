@@ -31,11 +31,14 @@ import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import NoCrashIcon from "@mui/icons-material/NoCrash";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import RecyclingIcon from "@mui/icons-material/Recycling";
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 import { getItems } from "./dashboardService";
 import { getTodayesReport } from "./dashboardService";
 import { getTodaysOrder } from "./dashboardService";
 import { getTrendingProducts } from "./dashboardService";
+import { getLastSevenDaysReport } from "./dashboardService";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -44,7 +47,8 @@ const Dashboard = () => {
   const [dashboardCards, setDashboardCards] = useState("");
   const [todaysReport, setTodaysReport] = useState("");
   const [todaysOrder, setTodaysOrder] = useState([]);
-  const [treningProucts, setTreningProucts] = useState([]);
+  const [trendingProucts, setTrendingProucts] = useState([]);
+  const [lastSevenDaysReport, setLastSevenDaysReport] = useState([]);
   const [toggleState, setToggleState] = useState(false);
 
   const [currentDateTime, setCurrentDateTime] = useState(new Date());
@@ -58,10 +62,13 @@ const Dashboard = () => {
         const todaysReportData = await getTodayesReport();
         const todaysOrderData = await getTodaysOrder();
         const trendingProductsData = await getTrendingProducts();
+        const lastSevenDaysReportData = await getLastSevenDaysReport();
         setDashboardCards(dashboardCardData);
         setTodaysReport(todaysReportData);
         setTodaysOrder(todaysOrderData);
-        setTreningProucts(trendingProductsData);
+        setTrendingProucts(trendingProductsData);
+        setLastSevenDaysReport(lastSevenDaysReportData);
+       
       } catch (error) {
         setErrorMessage("Error Dashboard Cards. Please try again.");
       }
@@ -117,9 +124,9 @@ const Dashboard = () => {
         </Box>
       </Box>
 
-      <Typography variant="h4" gutterBottom>
+      {/* <Typography variant="h4" gutterBottom>
         Today's Report:
-      </Typography>
+      </Typography> */}
       {/* GRID & CHARTS */}
       <Box
         display="grid"
@@ -138,7 +145,8 @@ const Dashboard = () => {
           <StatBox
             title={`৳ ${todaysReport?.todaysTotalOrderValue}`}
             // subtitle="Lifetime Sales"
-            subtitle="Total Order Amount"
+            count={`Count: ${todaysReport?.todayOrders?.length}`}
+            subtitle="Today's Total Order"
             // progress="0.75"
             // increase="+14%"
             icon={
@@ -146,18 +154,6 @@ const Dashboard = () => {
                 sx={{ color: colors.green, fontSize: "26px" }}
               />
             }
-          />
-          <StatBox
-            title={todaysReport?.todayOrders?.length}
-            // subtitle="Lifetime Sales"
-            subtitle="Total Order Count"
-            // progress="0.75"
-            // increase="+14%"
-            // icon={
-            //   <RecyclingIcon
-            //     sx={{ color: colors.green, fontSize: "26px" }}
-            //   />
-            // }
           />
 
           {/* <Box ml={2}>
@@ -175,25 +171,15 @@ const Dashboard = () => {
         >
           <StatBox
             title={`৳ ${todaysReport?.todaysTotalDeliveredOrderValue}`}
-            subtitle="Total Delivered Order Amount"
+            count={`Count: ${todaysReport?.todaysOrderDelivered?.length}`}
+            subtitle="Today's Total Delivered Order"
             // progress="0.50"
             // increase="+21%"
             icon={
               <NoCrashIcon sx={{ color: colors.green, fontSize: "26px" }} />
             }
           />
-          <StatBox
-            title={todaysReport?.todaysOrderDelivered?.length}
-            // subtitle="Lifetime Sales"
-            subtitle="Total Delivered Order Count"
-            // progress="0.75"
-            // increase="+14%"
-            // icon={
-            //   <RecyclingIcon
-            //     sx={{ color: colors.green, fontSize: "26px" }}
-            //   />
-            // }
-          />
+         
         </Box>
         <Box
           gridColumn="span 3"
@@ -204,29 +190,18 @@ const Dashboard = () => {
         >
           <StatBox
             title={`৳ ${todaysReport?.todaysTotalPendingOrderValue}`}
-            // subtitle="Total Customers"
-            subtitle="Total Pending Order Amount"
+            count={`Count: ${todaysReport?.todaysOrderPending?.length}`}
+            subtitle="Today's Total Pending Order"
             // progress="0.30"
             // increase="+5%"
             icon={
-              <PeopleOutlineIcon
+              <PendingActionsIcon
                 sx={{ color: colors.green, fontSize: "26px" }}
               />
             }
           />
-          <StatBox
-            title={todaysReport?.todaysOrderPending?.length}
-            // subtitle="Total Customers"
-            subtitle="Total Pending Order Count"
-            // progress="0.30"
-            // increase="+5%"
-            // icon={
-            //   <PeopleOutlineIcon
-            //     sx={{ color: colors.green, fontSize: "26px" }}
-            //   />
-            // }
-          />
         </Box>
+
         <Box
           gridColumn="span 3"
           backgroundColor={colors.greenAccent[700]}
@@ -236,31 +211,19 @@ const Dashboard = () => {
         >
           <StatBox
             title={`৳ ${todaysReport?.todaysTotalCanceledOrderValue}`}
-            // subtitle="Total Consumed Plastic"
-            subtitle="Total Canceled Order Amount"
+            count={`Count: ${todaysReport?.todaysOrderCanceled?.length}`}
+            subtitle="Today's Total Canceled Order"
             // progress="0.80"
             // increase="+43%"
             icon={
-              <RecyclingIcon sx={{ color: colors.green, fontSize: "26px" }} />
+              <CancelIcon sx={{ color: colors.green, fontSize: "26px" }} />
             }
-          />
-          <StatBox
-            title={`Count: ${todaysReport?.todaysOrderCanceled?.length}`}
-            // subtitle="Total Customers"
-            // subtitle="Total Pending Order Count"
-            // progress="0.30"
-            // increase="+5%"
-            // icon={
-            //   <PeopleOutlineIcon
-            //     sx={{ color: colors.green, fontSize: "26px" }}
-            //   />
-            // }
           />
         </Box>
 
         {/* <Typography variant="h4" gutterBottom>
         Lifetime Sales Report:
-      </Typography> */}
+        </Typography> */}
 
         <Box
           gridColumn="span 3"
@@ -271,6 +234,7 @@ const Dashboard = () => {
         >
           <StatBox
             title={`৳ ${dashboardCards?.lifetimeSale?.totalSaleAmount}`}
+            count={`Count: ${dashboardCards?.lifetimeSale?.lifetimeOrder}`}
             subtitle="Lifetime Sales"
             // subtitle="Total Order"
             // progress="0.75"
@@ -280,18 +244,6 @@ const Dashboard = () => {
                 sx={{ color: colors.green, fontSize: "26px" }}
               />
             }
-          />
-          <StatBox
-            title={dashboardCards?.lifetimeSale?.lifetimeOrder}
-            subtitle="Lifetime Order Count"
-            // subtitle="Total Plastic"
-            // progress="0.75"
-            // increase="+14%"
-            // icon={
-            //   <RecyclingIcon
-            //     sx={{ color: colors.green, fontSize: "26px" }}
-            //   />
-            // }
           />
 
           {/* <Box ml={2}>
@@ -309,24 +261,13 @@ const Dashboard = () => {
         >
           <StatBox
             title={`৳ ${dashboardCards?.lifetimeSale?.totalDeliveredSaleAmount}`}
+            count={`Count: ${dashboardCards?.lifetimeSale?.lifetimeDeliveredOrder}`}
             subtitle="LifeTime Delivered Order"
             // progress="0.50"
             // increase="+21%"
             icon={
               <NoCrashIcon sx={{ color: colors.green, fontSize: "26px" }} />
             }
-          />
-          <StatBox
-            title={dashboardCards?.lifetimeSale?.lifetimeDeliveredOrder}
-            // subtitle="Lifetime Sales"
-            subtitle="Lifetime Delivered Count"
-            // progress="0.75"
-            // increase="+14%"
-            // icon={
-            //   <MonetizationOnIcon
-            //     sx={{ color: colors.green, fontSize: "26px" }}
-            //   />
-            // }
           />
         </Box>
         <Box
@@ -357,19 +298,9 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title={dashboardCards?.plasticConsumeCount}
-            subtitle="Total Consumed Plastic"
-            // subtitle="Total Canceled Order Value"
-            // progress="0.80"
-            // increase="+43%"
-            icon={
-              <RecyclingIcon sx={{ color: colors.green, fontSize: "26px" }} />
-            }
-          />
-          <StatBox
-            title={dashboardCards?.totalPlasticReturn}
-            subtitle="Total Return Plastic"
-            // subtitle="Total Canceled Order Value"
+            title={`Return: ${dashboardCards?.totalPlasticReturn}`}
+            count={`Consumed: ${dashboardCards?.plasticConsumeCount}`}
+            subtitle="Lifetime Total Plastic"
             // progress="0.80"
             // increase="+43%"
             icon={
@@ -557,10 +488,10 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Top Selling Products ({treningProucts.length})
+              Top Selling Products ({trendingProucts.length})
             </Typography>
           </Box>
-          {treningProucts?.map((treningProucts, i) => (
+          {trendingProucts?.map((trendingProucts, i) => (
             <Box
               // key={`${todaysOrder._id}-${i}`}
               display="flex"
@@ -575,16 +506,16 @@ const Dashboard = () => {
                   variant="h5"
                   fontWeight="600"
                 >
-                  {treningProucts?.product?.name}
+                  {trendingProucts?.product?.name}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  SKU: {treningProucts?.product?.sku}
+                  SKU: {trendingProucts?.product?.sku}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  Stock: {treningProucts?.product?.quantity}
+                  Stock: {trendingProucts?.product?.quantity}
                 </Typography>
                 <Typography color={colors.grey[100]}>
-                  Sell: {treningProucts?.quantity}
+                  Sell: {trendingProucts?.quantity}
                 </Typography>
               </Box>
               {/* <Box color={colors.grey[100]}>{todaysOrder.date}</Box> */}
@@ -593,7 +524,7 @@ const Dashboard = () => {
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ৳ {treningProucts?.product?.price}
+                ৳ {trendingProucts?.product?.price}
               </Box>
             </Box>
           ))}
