@@ -313,23 +313,23 @@ const SideBar = () => {
 
               <Item
                 title="All Category"
-                to="/Employees"
+                to="/Category"
                 selected={selected}
                 setSelected={setSelected} />
               <Item
                 title="Featured Category"
-                to="/InviteEmployees"
+                to="/FeaturedCategory"
                 selected={selected}
                 setSelected={setSelected} />
               <Item
                 title="Sub-Category"
-                to="/Employees"
+                to="/SubCategory"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />
               <Item
                 title="Sub Sub-Category"
-                to="/Employees"
+                to="/SubSubCategory"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />
@@ -357,13 +357,13 @@ const SideBar = () => {
                 setSelected={setSelected} />
               <Item
                 title="Pending Order List"
-                to="/InviteEmployees"
+                to="/ViewPendingOrders/pending"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />
               <Item
                 title="Processing Order List"
-                to="/Employees"
+                to="/ViewProcessingOrders/processing"
                 // icon={<AdjustIcon fontSize="small" />}
                 selected={selected}
                 setSelected={setSelected} />

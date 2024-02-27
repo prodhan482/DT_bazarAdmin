@@ -58,10 +58,10 @@ const OrderDetailsPageLayout = ({
                 <div className="ml-6">
                   {/* <h1><img src={logo} alt="logo" width="20%" /></h1> */}
                   <h2 className="text-2xl mb-1.5">Order ID: #{orderID}</h2>
-                  <p className="text-[#262626] mb-1">
+                  <p className=" mb-1">
                     Order Date: {orderDate}{" "}
                   </p>
-                  <p className="text-[#262626] mb-1">
+                  <p className=" mb-1">
                     Order Status: {orderStatus}{" "}
                   </p>
                 </div>
@@ -85,10 +85,10 @@ const OrderDetailsPageLayout = ({
             <div className="grid grid-cols-2 ">
               <div className="ml-6">
                 <h2 className="text-2xl mb-1.5">Address Information</h2>
-                <h2 className="text-[#262626] mb-1.5">
+                <h2 className="mb-1.5">
                   Full Address: {fullAddressString}
                 </h2>
-                <p className="text-[#262626] mb-1">Area: {areaString} </p>
+                <p className="mb-1">Area: {areaString} </p>
                 {/* <p className="text-[#262626] mb-1">Order Status: {orderStatus} </p> */}
               </div>
               <div className="">

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 
-import TextField from "../../../../../Components/common/TextField"
+// import TextField from "../../../../../Components/common/TextField"
 import PrecedenceField from "../../../../../Components/common/PrecedenceField"
 import DescriptionField from "../../../../../Components/common/DescriptionField"
 import EditFormLayout from "../../../../../Components/common/EditFormLayout"
@@ -11,6 +11,9 @@ import { editItem } from "../quickAdsService"
 
 import { getItems as getProductData } from "../../Product/productService"
 import ProductDropDown from "../../../../../Components/common/ProductDropDown"
+
+import TextField from "@mui/material/TextField";
+import Autocomplete from '@mui/material/Autocomplete';
 
 function EditQuickAds({ quickAds, onClose, onEditSuccess }) {
 
@@ -26,7 +29,7 @@ function EditQuickAds({ quickAds, onClose, onEditSuccess }) {
 
                 const productData = await getProductData();
                 setProduct(productData);
-                console.log(productData)
+                // console.log(productData)
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -44,7 +47,7 @@ function EditQuickAds({ quickAds, onClose, onEditSuccess }) {
 
             await editItem(quickAds.id, {
                 product: selectedProduct,
-                precedence: parseInt(precedence),
+                precedence
 
             })
 
@@ -65,14 +68,25 @@ function EditQuickAds({ quickAds, onClose, onEditSuccess }) {
             onClose={onClose}
         >
 
-            <ProductDropDown
+            {/* <ProductDropDown
                className="text-black"
                 label="Product"
                 options={product}
                 value={selectedProduct}
                 onChange={setSelectedProduct}
                 required
+            /> */}
+
+            <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={product}
+                value={product.find(item => item._id === selectedProduct) || null} 
+                onChange={(_, newValue) => setSelectedProduct(newValue?._id || null)} 
+                getOptionLabel={(option) => option.name || ''} 
+                renderInput={(params) => <TextField {...params} label="Product" />}
             />
+
             <PrecedenceField
                 value={precedence}
                 onChange={(value) => setPrecedence(value)}

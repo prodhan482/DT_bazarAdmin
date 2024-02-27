@@ -19,8 +19,8 @@ const headers = {
     return response.data;
   }
 
-  export async function getAllOrdersByStatus(pending) {
-    const response = await axios.get(`${ ORDERS_API }/getAllOrdersByStatus/${pending}`, { headers });
+  export async function getAllOrdersByStatus(status,page,limit) {
+    const response = await axios.get(`${ ORDERS_API }/getAllOrdersByStatus/${status}/${page}/${limit}`, { headers });
     return response.data;
   }
 
@@ -55,4 +55,15 @@ function formatDate(date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
+}
+
+export async function searchOrder(search) {
+  const response = await axios.get(`${ ORDERS_API }/searchOrder?search=${search}`,{ headers });
+  return response.data;
+}
+
+
+export async function searchOrderByStatus(search,status) {
+  const response = await axios.get(`${ ORDERS_STATUS_API }/searchOrderByStatus/${status}?search=${search}`,{ headers });
+  return response.data;
 }

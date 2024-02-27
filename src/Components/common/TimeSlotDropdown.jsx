@@ -1,7 +1,7 @@
 function TimeSlot({ label, options, value, onChange, required,readOnly }) {
     return (
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700">{label}</label>
+        <label className="block text-sm font-medium">{label}</label>
         <div className="relative">
           <select disabled={readOnly}
             value={value !== undefined ? value : ""}
@@ -10,7 +10,7 @@ function TimeSlot({ label, options, value, onChange, required,readOnly }) {
             }}
             required={required}
             readOnly={readOnly}
-            className="appearance-none block w-full bg-white border border-gray-300 rounded-md py-2 px-3 leading-tight focus:outline-none focus:ring focus:border-blue-300"
+            className="appearance-none block w-full bg-white text-black border border-gray-300 rounded-md py-2 px-3 leading-tight focus:outline-none focus:ring focus:border-blue-300"
           >
             <option value="" disabled>
               Select {label}

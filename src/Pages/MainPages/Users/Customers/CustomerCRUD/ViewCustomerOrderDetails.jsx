@@ -295,6 +295,7 @@ function ViewCustomerOrderDetails() {
                 id="orderStatus"
                 value={orderStatus}
                 onChange={(e) => setOrderStatus(e.target.value)}
+                className="bg-white text-black"
               >
                 {customerOrderDetails.orderStatus === "pending" && (
                   <>
@@ -389,7 +390,7 @@ function ViewCustomerOrderDetails() {
         <div className=" pt-3 pr-10 w-full">
           <div className="grid grid-cols-2 ">
             <div className="ml-6">
-              <h2 className="text-[#262626] mb-1.5 text-sm mt-6">
+              <h2 className="mb-1.5 text-sm mt-6">
                 Customer Note: {customerOrderDetails?.notes} ||
                 {/* Delivery Date: {formatDate(customerOrderDetails?.deliveryDate)} ||  */}
                 Created Date: {formatDate(customerOrderDetails?.createdAt)} ||
@@ -403,7 +404,7 @@ function ViewCustomerOrderDetails() {
               {sortedOrderLogs.map((orderLogDetails) => (
                 <div key={orderLogDetails._id}>
                   {/* <h2 className="text-2xl mb-1.5">Changing Order Information</h2> */}
-                  <h2 className="text-[#262626] mb-1.5 text-sm mt-6">
+                  <h2 className="mb-1.5 text-sm mt-6">
                     Status: {orderLogDetails?.orderStatus} || Delivery Date:{" "}
                     {formatDate(orderLogDetails?.deliveryDate)} || Time Slot:{" "}
                     {orderLogDetails?.timeSlot?.startTime +
@@ -433,7 +434,7 @@ function ViewCustomerOrderDetails() {
                       customerOrderDetails.deliveryFee -
                       customerOrderDetails.total}
                   </div>
-                  <div className="pt-1 border-t-2 border-t-[#333] border-solid text-2xl mb-1.5">
+                  <div className="pt-1 border-t-2 border-solid text-2xl mb-1.5">
                     Total: {customerOrderDetails.total}
                   </div>
                   <div className="text-xl mb-[08px]">
